@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - KabaneroCLIClient",
+            "request": "launch",
+            "mainClass": "io.kabanero.cli.KabaneroCLIClient",
+            "projectName": "kabanero-website"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - APIClient",
+            "request": "launch",
+            "mainClass": "io.website.APIClient",
+            "projectName": "kabanero-website"
+        }
+    ]
+}
