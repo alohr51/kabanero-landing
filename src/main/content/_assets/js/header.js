@@ -43,14 +43,6 @@ function toggleHeaderNav() {
     });
 }
 
-function loadProductVersion(instance){
-    return fetch("/api/kabanero")
-        .then(function(response) {
-            return response.json();
-        })
-        .catch(error => console.error(`Error getting install info for: ${instance}`, error));
-}
-
 // prevent scrolling when navbar dropdown is opened
 $(document).ready(function(){
     $(".navbar-toggler").click(function(){
@@ -62,7 +54,6 @@ $(document).ready(function(){
         }
     });
 
-    loadProductVersion();
     toggleHeaderNav();
 
     //loadWhatsNewModal();

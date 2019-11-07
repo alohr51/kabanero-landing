@@ -4,6 +4,7 @@
 <aside class="bx--side-nav" data-side-nav>
     <nav class="bx--side-nav__navigation" role="navigation" aria-label="Side navigation">
         <header class="bx--side-nav__header">
+            <!--
             <a>
                 <button class="bx--header__menu-trigger bx--header__action" aria-label="Open menu" title="Open menu"
                     data-navigation-menu-panel-label-expand="Open menu"
@@ -11,6 +12,7 @@
                     data-navigation-menu-target="#navigation-menu-bvjxymx0kzt">
                 </button>
             </a>
+            -->
         </header>
 
         <ul class="bx--side-nav__items">
@@ -59,11 +61,11 @@
                 </a>
             </li>
 
-            <li class="bx--side-nav__item {% if page.url contains '/guides' %}bx--side-nav__item--active{% endif %}">
-                <a class="bx--side-nav__link">
+            <li id="about-side-icon" class="bx--side-nav__item hide">
+                <a href="#" class="bx--side-nav__link" data-toggle="modal" data-modal-target="#product-version-modal">
                     <div class="bx--side-nav__icon bx--side-nav__icon--small">
                         <svg class="icon">
-                            <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--add--glyph"></use>
+                            <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--info"></use>
                         </svg>
                     </div>
                     <span class="bx--side-nav__link-text">{{t.common.about}}</span>
@@ -71,7 +73,7 @@
             </li>
             <li>
                 <button class="bx--side-nav__toggle" role="button" title="Close the side navigation menu">
-                    <div id="side-bar-nav-expand-icon" class="bx--side-nav__icon">
+                    <div class="bx--side-nav__icon">
                         <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                             class="bx--side-nav__icon--collapse bx--side-nav-collapse-icon" width="20" height="20"
@@ -96,3 +98,37 @@
         </ul>
     </nav>
 </aside>
+
+<div data-modal id="product-version-modal" class="bx--modal bx--modal" role="dialog"
+    aria-labelledby="modal-install-info-modal-label" aria-describedby="modal-install-info-modal-heading" tabindex="-1">
+    <div class="bx--modal-container">
+        <div class="bx--modal-header">
+            <span class="bx--modal-header__heading bx--type-beta" id="install-info-modal-heading">
+                {{t.common.install-info}}
+            </span>
+
+            <button class="bx--modal-close" type="button" data-modal-close aria-label="close modal">
+                <img src="/img/modal-close.svg"/>
+            </button>
+
+            <button id="install-copy-tooltip" class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--bottom">
+                <span class="bx--assistive-text">Copy</span>
+                <svg id="install-info-copy" class="copy-icons">
+                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--copy"></use>
+                </svg>
+                <svg id="install-info-checkmark" class="hide copy-icons">
+                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--checkmark--glyph"></use>
+                </svg>
+            </button>
+        </div>
+
+        <div class="bx--modal-content">
+            {{t.common.product-name}} {{t.common.version}}: <span id="product-version-number"></span>
+        </div>
+
+        <div class="bx--modal-footer">
+            <button class="bx--btn bx--btn--secondary" type="button"
+                data-modal-close>{{t._includes.header.close}}</button>
+        </div>
+    </div>
+</div>
