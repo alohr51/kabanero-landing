@@ -1,8 +1,15 @@
-@import "../../../../../node_modules/carbon-components/scss/components/ui-shell/_side-nav.scss";
+@import "kabanero.scss",
+"../../../../../node_modules/carbon-components/scss/components/ui-shell/_side-nav.scss";
 
 main {
     margin-left: 3rem;
     margin-top: -1rem;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: $interactive-01;
 }
 
 .bx--side-nav {

@@ -4,6 +4,7 @@ common:
   codewind: Codewind
   eclipse: Eclipse
   vscode: VS Code 
+  about: About
 _includes:
   header:
     whats-new-toast-text: Check out what's in the latest release of Kabanero
