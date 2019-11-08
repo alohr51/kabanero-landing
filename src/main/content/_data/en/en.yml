@@ -1,13 +1,9 @@
 common:
-  product-name: Kabanero
   instructions: View Instructions
   appsody: Appsody
   codewind: Codewind
   eclipse: Eclipse
-  vscode: VS Code 
-  about: About
-  version: version
-  install-info: Installation Information
+  vscode: VS Code
 _includes:
   header:
     whats-new-toast-text: Check out what's in the latest release of Kabanero

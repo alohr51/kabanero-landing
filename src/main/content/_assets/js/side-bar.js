@@ -30,20 +30,8 @@ function loadProductVersion(){
         })
         .then(function(installInfo){
             if(installInfo && installInfo.version !== ""){
-                $("#product-version-number").text(installInfo.version);
-                showAboutIcon();
+                $("#footer-version").text(installInfo.version);
             }
         })
         .catch(error => console.error("Error getting install info", error));
-    
-    $("#install-copy-tooltip").on("click", function(){
-        let installInfo = $(this).parent().parent().find(".bx--modal-content").text().trim();
-        navigator.clipboard.writeText(installInfo);
-        $("#install-info-checkmark").fadeIn().delay(1000).fadeOut();
-    });
-
-    // only show the modal if there is a version set because this is the only thing shown anyways
-    function showAboutIcon(){
-        $("#about-side-icon").show();
-    }
 }

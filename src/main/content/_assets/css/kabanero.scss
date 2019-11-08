@@ -428,7 +428,6 @@ footer {
 
     #footer_round_links_container {
         margin: 23px 0;
-        padding-right: 3em;
         float: right;
         padding-left: 4em;
     }
@@ -437,7 +436,6 @@ footer {
         display: inline-block;
         width: 45px;
         height: 45px;
-        float: left;
     }
 
     #footer_groupsio_link {
@@ -528,8 +526,15 @@ footer {
     #footer_support_link, #footer_blog_link {
         margin-left: 28px;
     }
+}
 
+.footer_version{
+    margin: .5em 2em 0 0;
+    float: right;
 
+    a {
+        font-size: 1.2em !important;
+    }
 }
 
 @media (max-width: 991.98px) {
