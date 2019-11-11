@@ -1,4 +1,7 @@
 #!/bin/bash
+
+CONTENT_DIR="src/main/content"
+
 npm install
 
 # Move carbon icons so jekyll will include them
