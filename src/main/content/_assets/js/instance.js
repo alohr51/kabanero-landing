@@ -30,7 +30,6 @@ function setListeners(){
 
     $(document).on("click", ".copy-to-clipboard", function(){
         let id = $(this).data("inputIDToCopy");
-        console.log(id)
         copy($(`#${id}`));
     });
 
@@ -48,11 +47,9 @@ function setListeners(){
 function loadAllInfo(){
     fetchAllInstances()
         .then(setInstanceData);
-      //  setInstanceData([{"details":{"cliURL":"https://kabanero-cli-kabanero.apps.alohr.os.fyre.ibm.com","collections":[{"name":"java-microprofile","version":"0.2.19"},{"name":"java-spring-boot2","version":"0.3.16"},{"name":"nodejs","version":"0.2.6"},{"name":"nodejs-express","version":"0.2.8"},{"name":"nodejs-loopback","version":"0.1.6"}],"dateCreated":"2019-11-25T16:43:11Z","repos":[{"activateDefaultCollections":true,"appsodyURL":"https://github.com/kabanero-io/collections/releases/download/0.3.0/kabanero-index.yaml","codewindURL":"https://github.com/kabanero-io/collections/releases/download/0.3.0/kabanero-index.json","name":"central"}]},"instanceName":"kabanero"}])
 
     fetchAllTools()
         .then(setToolData);
-    //setToolData(      [{"label":"Tekton","location":"https://tekton-dashboard-tekton-pipelines.apps.alohr.os.fyre.ibm.com"},{"label":"Transformation Advisor"},{"label":"Application Navigator","location":"https://kappnav-ui-service-kappnav.apps.alohr.os.fyre.ibm.com"}])
 }
 
 // Set details on UI for any given instance
@@ -87,7 +84,7 @@ function setErrorHTML(){
                 </svg>
                 <div class="bx--accordion__title">No instance found</div>
             </button>
-            <div id="paneError" class="bx--accordion__content" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
+            <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
             </div>
         </li>`
     );

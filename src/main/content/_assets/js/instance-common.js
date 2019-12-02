@@ -137,7 +137,6 @@ let InstancePane = class {
     static createCopyInput(id, url){
         // Image is used to let the user know they can click to copy the URL. The inputIDToCopy data attribute will let the click 
         // event konw which input to copy the URL from (helpful when there's multiple)
-        console.log("eh- " + id)
         let img = $("<img />", {src: "/img/copy-clipboard.png", alt: "copy to clipboard icon", class: "img img-fluid copy-to-clipboard tooltip-copy"}).data("inputIDToCopy", id);
 
         img.tooltip({title: "copied!", trigger: "click"});
