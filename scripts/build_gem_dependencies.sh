@@ -1,3 +1,5 @@
 echo "Installing ruby packages..."
-gem install bundler
+# only install the latest 1.x version of bundler. We had problems with 2.x
+# the problems might be fixes in later bundler versions so we can try again later
+gem install bundler -v "~>1.0"
 bundle install
