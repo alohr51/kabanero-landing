@@ -110,6 +110,9 @@ index:
  
 instance:
   instances: Instances
+  stacks: Stacks
+  images: Images
+  curated-stacks: Curated Stacks
   instance-details: Instance details
   kab-instances: Kabanero Instances
   tools: Tools
@@ -133,6 +136,6 @@ instance:
   no-instances: No instance found
   date-created: Date created
   modal-confirmation-header: Confirmation
-  modal-content: "Are you sure you want to deactivate the collection:"
+  modal-content: "Are you sure you want to deactivate the stack:"
   modal-cancel-button: Cancel
   modal-deactivate-button: Deactivate
