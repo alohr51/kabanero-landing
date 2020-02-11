@@ -29,8 +29,7 @@ permalink: /instance/stacks/
         <div class="bx--col-xlg white-background">
             <div class="bx--row">
                 <div class="bx--col-xlg">
-                    <div id="stack-table-container" class="hide">
-                        {% include table-loader.html %}
+                    <div id="stack-table-container">
                         <div class="sync-stacks-button">
                             <button
                                 class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--left bx--tooltip--align-start">
@@ -44,9 +43,9 @@ permalink: /instance/stacks/
                                 </svg>
                             </button>
                         </div>
-
                         <h2>{{t.instance.stacks}}</h2>
-                        <table id="stack-table" class="bx--data-table">
+                        {% include table-loader.html %}
+                        <table id="stack-table" class="bx--data-table hide">
                             <thead>
                                 <tr>
                                     <th>
@@ -74,10 +73,10 @@ permalink: /instance/stacks/
             <!-- Curated Stacks table -->
             <div class="bx--row">
                 <div class="bx--col-xlg">
-                    {% include table-loader.html %}
-                    <div id="curated-stack-table-container" class="hide">
+                    <div id="curated-stack-table-container">
                         <h2>{{t.instance.curated-stacks}}</h2>
-                        <table id="curated-stack-table" class="bx--data-table">
+                        {% include table-loader.html %}
+                        <table id="curated-stack-table" class="bx--data-table hide">
                             <thead>
                                 <tr>
                                     <th>

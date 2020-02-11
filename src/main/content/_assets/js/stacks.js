@@ -75,7 +75,7 @@ function getCliVersion(instanceName) {
 function deactivateStack(name, version) {
     let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
 
-    return fetch(`/api/auth/kabanero/${instanceName}/stack/${name}/versions/${version}`, {method: "DELETE"})
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/${name}/versions/${version}`, { method: "DELETE" })
         .then(function (response) {
             return response.json();
         })
@@ -87,7 +87,7 @@ function syncStacks(instanceName) {
     if (typeof instanceName === "undefined") {
         return;
     }
-    return fetch(`/api/auth/kabanero/${instanceName}/stacks/sync`, {method: "PUT"})
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/sync`, { method: "PUT" })
         .then(handleInstancesRequests)
         .catch(error => console.error("Error syncing stacks", error));
 }
@@ -158,7 +158,7 @@ function updateStackView(stackJSON) {
             .data("stackname", stackName)
             .data("stackversion", versionObj.version)
             .attr("data-modal-target", `#deactivate-stack-modal-${iconStatus}`);
-        
+
         let svg = `<svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M16,4A12,12,0,1,1,4,16,12,12,0,0,1,16,4m0-2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Z"></path><path d="M10 15H22V17H10z"></path><title>Deactivate ${stackName} - ${versionObj.version} stack</title></svg>`;
 
         div.append(svg);
@@ -166,8 +166,8 @@ function updateStackView(stackJSON) {
     }
 
     $(".table-loader").hide();
-    $("#stack-table-container").show();
-    $("#curated-stack-table-container").show();
+    $("#stack-table").show();
+    $("#curated-stack-table").show();
 }
 
 function setCLIVersion(cliVersion) {
@@ -218,6 +218,6 @@ function loginViaCLI(instanceName) {
         return;
     }
 
-    return fetch(`/api/auth/kabanero/${instanceName}/stacks/login`, {method: "POST"})
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/login`, { method: "POST" })
         .catch(error => console.error(`Error logging into instance ${instanceName} via CLI server`, error));
 }

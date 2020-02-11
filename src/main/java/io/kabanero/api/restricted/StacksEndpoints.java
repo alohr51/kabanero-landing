@@ -71,7 +71,7 @@ import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 
 import io.website.ResponseMessage;
-import io.kabanero.v1alpha1.models.Kabanero;
+import io.kabanero.v1alpha2.models.Kabanero;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.KabaneroClient;
 

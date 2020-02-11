@@ -114,6 +114,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
                 <configuration>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>kabanero-console</warName>
                     <warSourceDirectory>target/jekyll-webapp</warSourceDirectory>
