@@ -46,7 +46,7 @@ public class InstanceIT {
         String baseUrl = "https://localhost:9443/instance/";
 
         driver.get(baseUrl);
-        String expectedTitle = "Kabanero";
+        String expectedTitle = "Kabaneross";
         String actualTitle = driver.getTitle();
         assertEquals("title equals " + expectedTitle, expectedTitle, actualTitle);
     }
