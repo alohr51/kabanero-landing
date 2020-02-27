@@ -195,6 +195,7 @@
                 <version>3.0.0-M4</version>
                 <executions>
                     <execution>
+                        <id>integration-test</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
@@ -202,11 +203,10 @@
                     </execution>
                     <execution>
                         <id>verify</id>
-                        <phase>verify</phase>
                         <goals>
-                            <goal>verify</goal>
+                          <goal>verify</goal>
                         </goals>
-                    </execution>
+                      </execution>
                 </executions>
                 <configuration>
                     <trimStackTrace>false</trimStackTrace>
