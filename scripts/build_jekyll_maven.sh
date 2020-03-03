@@ -73,7 +73,9 @@ find "$WEBAPP_DIR" -maxdepth 1 ! -name "webapp" ! -name 'WEB-INF' ! -name "META-
 
 # we put the generated files into src/main/webapp because the app server will host them properly on the root context.
 # Previously we had them included as a webresource in the pom.xml, but the maven liberty plugin dev mode didn't include that
-# which made development harder. Jekyll will delete contents of the destination, so move them into webapp folder after.
+# which made development harder. 
+#
+# Jekyll will delete contents of the destination, so move them into webapp folder after.
 bundle exec jekyll build $JEKYLL_BUILD_FLAGS --source "$CONTENT_DIR" --destination "$WEBAPP_DIR/jekyll-webapp"
 
 mv "$WEBAPP_DIR"/jekyll-webapp/* "$WEBAPP_DIR"
