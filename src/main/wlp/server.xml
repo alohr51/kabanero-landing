@@ -24,8 +24,6 @@
         <feature>jsonp-1.1</feature>
         <feature>cdi-2.0</feature>
         <feature>transportSecurity-1.0</feature>
-        <feature>socialLogin-1.0</feature>
-        <feature>appSecurity-2.0</feature>
     </featureManager>
     
     <keyStore id="defaultKeyStore" password="changeit" />
@@ -34,16 +32,6 @@
     <httpendpoint />
 
     <cdi12 enableImplicitBeanArchives="false"/>
-
-    <githubLogin 
-    userApi="https://api.github.com/user" 
-    userNameAttribute="login" 
-    clientId="4948e59a92cadc9c1d52" 
-    clientSecret="8117cecbbe7e772cc06acf2b8c9bab7b10ba2cc7" 
-    tokenEndpoint="https://github.com/login/oauth/access_token" 
-    authorizationEndpoint="https://github.com/login/oauth/authorize" 
-    scope="repo admin:org user"
-    />
     
     <webApplication location="kabanero-console.war" contextRoot="/"/>
 
