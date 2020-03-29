@@ -86,10 +86,9 @@ function fetchUserAdminStatus(oauthJSON) {
 }
 
 
-function fetchInstanceAdmins(isAdmin){
+function fetchInstanceAdmins(adminStatus){
     let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
-
-    if (typeof instanceName === "undefined" || !isAdmin) {
+    if (typeof instanceName === "undefined" || !adminStatus.isAdmin) {
         return;
     }
     
@@ -158,10 +157,10 @@ function removeTeamMember(target) {
         return;
     }
     return fetch(`/api/auth/git/team/${teamId}/member/${githubUsername}`, {
-        method: 'DELETE'
+        method: "DELETE"
     })
         .then(function (response) {
-            return response.json()
+            return response.json();
         })
         .then(data => {
             if (data.msg.includes("404")) {
@@ -188,6 +187,7 @@ function updateInstanceAdminView(adminMembersJson) {
 
     adminMembersJson.forEach(team => {
         if (team.members.length === 0) {
+            $("#admin-modal-no-admins").show();
             return;
         }
 
@@ -227,8 +227,11 @@ function updateInstanceAdminView(adminMembersJson) {
     uniqueAdminList.forEach(user => {
         let githubAdminUsername = user.login;
         $("#instance-accordion-admins-list").append(`<span class="instance-admin-names">${githubAdminUsername}<span>`);
-        $("#instance-accordion-admin-view").removeClass("hidden");
     });
+    
+    if(uniqueAdminList.length > 0){
+        $("#instance-accordion-admin-view").removeClass("hidden");
+    }
 }
 
 let ToolPane = class {

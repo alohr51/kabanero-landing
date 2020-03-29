@@ -46,6 +46,8 @@ $(document).ready(function () {
     $("#admin-modal-content").on("click", ".bx--inline-notification__close-button", e => {
         $(e.target).closest(".bx--accordion__content").find(".remove-user-error-notification").addClass("hidden");;
     });
+
+    $("#stack-govern-dropdown .bx--dropdown-list li").on("click", setDigestGovernanacePolicy);
 });
 
 function setListeners() {
@@ -73,6 +75,7 @@ function loadAllInfo(instanceJSON) {
     }
 
     setInstanceCard(instanceJSON);
+    displayDigest(instanceJSON);
     fetchStacks(instanceJSON.metadata.name);
 
     fetchAllTools()
@@ -81,7 +84,41 @@ function loadAllInfo(instanceJSON) {
     fetchOAuthDetails()
         .then(setOAuth)
         .then(fetchUserAdminStatus);
+}
+
+function displayDigest(instance){
+    if(!instance.spec || !instance.spec.governancePolicy){
+        console.log("Failed to get stack govern policy. instance.spec or instance.spec.governancePoliy does not exist.");
+        return;
     }
+    // The way carbon dropdown works is different than normal select. 
+    // This gets the current li that the server says is the current digest, and sets the display to that text.
+    // Then it adds the selected class since it doesn't make sense to select the same li that is already the current digest.
+    let policy = instance.spec.governancePolicy.stackPolicy;
+
+    $("#stack-govern-dropdown li").show();
+    let $currentPolicyLi = $(`#stack-govern-dropdown li[data-value='${policy}']`);
+    let translatedPolicyText = $currentPolicyLi.find("a").first().text();
+    $("#stack-govern-value").attr("data-value", policy);
+    $("#stack-govern-value-text").text(translatedPolicyText);
+    $currentPolicyLi.addClass("bx--dropdown--selected");
+}
+
+function setDigestGovernanacePolicy(){
+    let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
+    let policy = $(this).attr("data-value");
+    fetch(`/api/kabanero/${instanceName}/digest`, 
+        { 
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({policy})
+        })
+        .then(() => $("#digest-checkmark").fadeIn("slow").delay(5000).fadeOut("slow"))
+        .catch(error => console.error(`Error setting new digest policy to: ${policy}`, error));
+}
 
 // Set details on UI for any given instance
 function setToolData(tools) {

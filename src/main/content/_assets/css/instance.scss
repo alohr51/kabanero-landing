@@ -23,7 +23,8 @@
 "../../../../../node_modules/carbon-components/scss/components/loading/loading",
 "../../../../../node_modules/carbon-components/scss/components/tile/tile",
 "../../../../../node_modules/carbon-components/scss/components/notification/inline-notification",
-"../../../../../node_modules/carbon-components/scss/components/text-input/text-input"; 
+"../../../../../node_modules/carbon-components/scss/components/text-input/text-input",
+"../../../../../node_modules/carbon-components/scss/components/dropdown/dropdown";
 //declare variables
 $color-ibm:#3d70b2;
 $kabanero-color: #C43804;
@@ -309,5 +310,9 @@ button:disabled > .arrow-container > svg{
 
 #num-stacks {
     font-weight: 400;
-    margin-top: 1em;
+    margin-top: .5em;
 } 
+
+.green-checkmark-fill {
+    fill: $support-02;
+}
