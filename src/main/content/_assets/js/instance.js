@@ -76,24 +76,6 @@ function loadAllInfo(instanceJSON) {
         .then(fetchUserAdminStatus);
 }
 
-function displayDigest(instance){
-    if(!instance.spec || !instance.spec.governancePolicy){
-        console.log("Failed to get stack govern policy. instance.spec or instance.spec.governancePoliy does not exist.");
-        return;
-    }
-    // The way carbon dropdown works is different than normal select. 
-    // This gets the current li that the server says is the current digest, and sets the display to that text.
-    // Then it adds the selected class since it doesn't make sense to select the same li that is already the current digest.
-    let policy = instance.spec.governancePolicy.stackPolicy;
-
-    $("#stack-govern-dropdown li").show();
-    let $currentPolicyLi = $(`#stack-govern-dropdown li[data-value='${policy}']`);
-    let translatedPolicyText = $currentPolicyLi.find("a").first().text();
-    $("#stack-govern-value").attr("data-value", policy);
-    $("#stack-govern-value-text").text(translatedPolicyText);
-    $currentPolicyLi.addClass("bx--dropdown--selected");
-}
-
 // Set details on UI for any given instance
 function setToolData(tools) {
     let noTools = true;

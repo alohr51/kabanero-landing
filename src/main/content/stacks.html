@@ -51,7 +51,19 @@ permalink: /instance/stacks/
             <div class="bx--row">
                 <div class="bx--col-xlg">
                     <div id="stack-table-container">
-                        <!-- stack governance -->
+                        <!-- Sync stack refresh icon -->
+                        <div class="sync-stacks-button">
+                            <button
+                                class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--left bx--tooltip--align-start">
+                                <span class="bx--assistive-text">{{t.instance.sync-tooltip}}</span>
+                                <svg class="margin-right-icon" width="30" height="30" fill="#ffffff">
+                                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--schematics"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <h2>{{t.instance.stacks}}</h2>
+
+                        <!-- stack governance selection -->
                         <div class="bx--row">
                             <div class="bx--col">
                                 <div class="bx--form-item">
@@ -110,18 +122,6 @@ permalink: /instance/stacks/
                                 </div>                        
                             </div>
                         </div>
-
-                        <!-- Sync stack refresh icon -->
-                        <div class="sync-stacks-button">
-                            <button
-                                class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--left bx--tooltip--align-start">
-                                <span class="bx--assistive-text">{{t.instance.sync-tooltip}}</span>
-                                <svg class="margin-right-icon" width="30" height="30" fill="#ffffff">
-                                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--schematics"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <h2>{{t.instance.stacks}}</h2>
                         {% include table-loader.html %}
                         <table id="stack-table" class="bx--data-table hide">
                             <thead>

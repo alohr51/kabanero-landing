@@ -447,15 +447,14 @@ function setInstanceSelections(selectionName) {
 
             // If selectionName is passed we will set the active tab to one that matches that name, otherwise we set the first one in the list.
             // For the selectionName == true case - we need to find the tab where the child div has the same instance name, but we want to return the "li" parent
-            let $activeInstance = selectionName ? $("#instance-accordion li .bx--accordion__title").filter((_, elem) => $(elem).text() === selectionName).get(0).closest("li") :
+            let $activeInstance = typeof selectionName !== "undefined" ? $("#instance-accordion li .bx--accordion__title").filter((_, elem) => $(elem).text() === selectionName).first().closest("li") :
                 $("#instance-accordion li").first();
             
-            if(selectionName && !$activeInstance){
+            if(selectionName && !$activeInstance){  
                 console.log(`Accordion could not find a selection instance for name: ${selectionName}`);
                 return;
             }
-
-            $activeInstance.addClass("bx--accordion__item--active active-instance");
+            $($activeInstance).addClass("bx--accordion__item--active active-instance");
             return $activeInstance.find(".bx--accordion__title").text().trim();
         });
 }

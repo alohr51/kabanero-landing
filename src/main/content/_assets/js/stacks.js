@@ -1,3 +1,5 @@
+const CLI_LOGIN_RETRY_COUNT = 3;
+
 $(document).ready(function () {
     let url = new URL(location.href);
     let instanceName = url.searchParams.get("name");
@@ -31,12 +33,25 @@ $(document).ready(function () {
     
 });
 
-function loadAllInfo(instanceName){
+function loadAllInfo(instanceJSON){
+    if (typeof instanceJSON === "undefined") {
+        console.log("instance data is undefined, cannot load instance");
+        return;
+    }
+
+    displayDigest(instanceJSON);
+
+    let instanceName = instanceJSON.metadata.name;
+
     handleInitialCLIAuth(instanceName)
         .then(handleStacksRequests);
 }
 
 function handleStacksRequests(instanceName) {
+    if(!instanceName){
+        return;
+    }
+
     getStacksData(instanceName);
     getCliVersion(instanceName);
 }
@@ -184,16 +199,22 @@ function getURLParam(key) {
     return new URLSearchParams(window.location.search).get(key);
 }
 
-function handleInitialCLIAuth(instanceName) {
+function handleInitialCLIAuth(instanceName, retries) {
+    retries = typeof retries === "undefined" ? 0 : retries;
+    // We use the stacks endpoint to check if a user is logged in on initial page load, if we get a 401 we'll login and retry this route
+    // If we get back a 200 we consider ourselves successfully logged in
     return fetch(`/api/auth/kabanero/${instanceName}/stacks`)
         .then(function (response) {
-
             // Login via cli and retry if 401 is returned on initial call
-            if (response.status === 401) {
+            if (retries <= CLI_LOGIN_RETRY_COUNT && response.status === 401) {
                 return loginViaCLI(instanceName)
                     .then(() => {
-                        return handleInitialCLIAuth(instanceName);
+                        return handleInitialCLIAuth(instanceName, ++retries);
                     });
+            }
+            else if (retries >= CLI_LOGIN_RETRY_COUNT){
+                console.log("exceeded max retries to login to CLI");
+                return;
             }
             else if (response.status !== 200) {
                 console.warn(`Initial auth into instance ${instanceName} returned status code: ${response.status}`);
@@ -213,4 +234,22 @@ function loginViaCLI(instanceName) {
 
     return fetch(`/api/auth/kabanero/${instanceName}/stacks/login`, { method: "POST" })
         .catch(error => console.error(`Error logging into instance ${instanceName} via CLI server`, error));
+}
+
+function displayDigest(instance){
+    if(!instance.spec || !instance.spec.governancePolicy){
+        console.log("Failed to get stack govern policy. instance.spec or instance.spec.governancePoliy does not exist.");
+        return;
+    }
+    // The way carbon dropdown works is different than normal select. 
+    // This gets the current li that the server says is the current digest, and sets the display to that text.
+    // Then it adds the selected class since it doesn't make sense to select the same li that is already the current digest.
+    let policy = instance.spec.governancePolicy.stackPolicy;
+
+    $("#stack-govern-dropdown li").show();
+    let $currentPolicyLi = $(`#stack-govern-dropdown li[data-value='${policy}']`);
+    let translatedPolicyText = $currentPolicyLi.find("a").first().text();
+    $("#stack-govern-value").attr("data-value", policy);
+    $("#stack-govern-value-text").text(translatedPolicyText);
+    $currentPolicyLi.addClass("bx--dropdown--selected");
 }
