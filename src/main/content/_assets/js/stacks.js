@@ -1,17 +1,14 @@
 $(document).ready(function () {
-    handleInstancesRequests();
-    $("#instance-accordion li").on("click", e => {
-        // prevent carbon from doing its normal thing with the accordion
-        e.stopPropagation();
+    let url = new URL(location.href);
+    let instanceName = url.searchParams.get("name");
 
-        let newName = handleInstanceSelection(e.target);
-        fetchAnInstance(newName)
-            .then(updateInstanceView);
-    });
+    setInstanceSelections(instanceName);
+    fetchAnInstance(instanceName)
+        .then(loadAllInfo);
 
     $("#sync-stacks-icon").on("click", (e) => {
         if (e.target.getAttribute("class") == "icon-active") {
-            let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
+            let instanceName = getActiveInstanceName();
             emptyTable();
             syncStacks(instanceName);
         }
@@ -34,13 +31,9 @@ $(document).ready(function () {
     
 });
 
-function handleInstancesRequests() {
-    $("#instance-accordion").empty();
-    fetchAllInstances()
-        .then(setInstanceSelections)
-        .then(handleInitialCLIAuth)
+function loadAllInfo(instanceName){
+    handleInitialCLIAuth(instanceName)
         .then(handleStacksRequests);
-    //TODO select/fetch current instance from url param for the dropdown
 }
 
 function handleStacksRequests(instanceName) {
@@ -73,7 +66,7 @@ function getCliVersion(instanceName) {
 }
 
 function deactivateStack(name, version) {
-    let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
+    let instanceName = getActiveInstanceName();
 
     return fetch(`/api/auth/kabanero/${instanceName}/stacks/${name}/versions/${version}`, { method: "DELETE" })
         .then(function (response) {

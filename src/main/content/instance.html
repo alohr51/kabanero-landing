@@ -19,6 +19,7 @@ permalink: /instance/
         </div>
     </div>
 
+    <!-- Instance Accordion -->
     <div class="bx--row">
         <div class="bx--col-xlg-4">
             <div class="bx--row">
@@ -104,66 +105,6 @@ permalink: /instance/
                             </div>
                         </div>
 
-                        <!-- stack governance -->
-                        <div class="bx--row">
-                            <div class="bx--col">
-                                <div class="bx--form-item">
-                                    <div id="stack-govern-dropdown" class="bx--dropdown__wrapper">
-                                        <span id="stack-govern-label" class="bx--label">{{t.instance.stack-govern.policy}}</span>
-                                        <div id="stack-govern-value" data-dropdown data-value class="bx--dropdown">
-                                            <button class="bx--dropdown-text" aria-haspopup="true" aria-expanded="false"
-                                                aria-controls="stack-govern-menu"
-                                                aria-labelledby="stack-govern-label stack-govern-value-text"
-                                                type="button">
-                                                <span class="bx--dropdown-text__inner" id="stack-govern-value-text">
-                                                    {{t.common.loading}}
-                                                </span>
-                                                <span class="bx--dropdown__arrow-container">
-                                                    <svg focusable="false" preserveAspectRatio="xMidYMid meet"
-                                                        style="will-change: transform;"
-                                                        xmlns="http://www.w3.org/2000/svg" class="bx--dropdown__arrow"
-                                                        width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                                                        <path d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"></path>
-                                                    </svg>
-                                                </span>
-                                                <svg id="digest-checkmark" class="green-checkmark-fill hide" width="13" height="13">
-                                                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--checkmark"></use>
-                                                </svg>
-                                            </button>
-                                            <ul class="bx--dropdown-list" role="menu" tabindex="0"
-                                                id="stack-govern-menu" aria-hidden="true" wh-menu-anchor="left"
-                                                aria-labelledby="stack-govern-label">
-                                                <li data-option data-value="strictDigest" class="bx--dropdown-item"
-                                                    title="{{t.instance.stack-govern.strictDigest}}">
-                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
-                                                        role="menuitemradio" aria-checked="true"
-                                                        id="stack-govern-item0">{{t.instance.stack-govern.strictDigest}}</a>
-                                                </li>
-                                                <li data-option data-value="activeDigest" class="bx--dropdown-item"
-                                                    title="{{t.instance.stack-govern.activeDigest}}">
-                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
-                                                        role="menuitemradio" aria-checked="false"
-                                                        id="stack-govern-item1">{{t.instance.stack-govern.activeDigest}}</a>
-                                                </li>
-                                                <li data-option data-value="ignoreDigest" class="bx--dropdown-item"
-                                                    title="{{t.instance.stack-govern.ignoreDigest}}">
-                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
-                                                        role="menuitemradio" aria-checked="false"
-                                                        id="stack-govern-item2">{{t.instance.stack-govern.ignoreDigest}}</a>
-                                                </li>
-                                                <li data-option data-value="none" class="bx--dropdown-item"
-                                                    title="{{t.instance.stack-govern.none}}">
-                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
-                                                        role="menuitemradio" aria-checked="false"
-                                                        id="stack-govern-item3">{{t.instance.stack-govern.noDigest}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>                        
-                            </div>
-                        </div>
-
                         <div class="bx--row">
                             <div id="stack-list" class="bx--col"></div>
                         </div>
@@ -228,8 +169,7 @@ permalink: /instance/
 
 <!-- Templates -->
 <li id="instance-li-template" data-accordion-item class="bx--accordion__item hidden">
-    <button class="bx--accordion__heading accordion-title" aria-expanded="false"
-        aria-controls="pane${this.instanceName}">
+    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="pane">
         <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
             xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16"
             aria-hidden="true">
@@ -239,7 +179,7 @@ permalink: /instance/
     </button>
     <div class="bx--accordion__content">
         <p>{{t.instance.details}}</p>
-        <div class="instancre-details">
+        <div class="instance-details">
             <p class="gray-text">{{t.instance.date-created}}</p>
             <p class="creation-date"></p>
         </div>
@@ -320,7 +260,7 @@ permalink: /instance/
                     </div>
 
                     <button class="bx--btn bx--btn--secondary bx--btn--field add-user-button" type="button">
-                        <svg class="add-user-button-icon" width="13" height="13" fill="#ffffff">
+                        <svg class="margin-right-icon" width="13" height="13" fill="#ffffff">
                             <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--add"></use>
                         </svg>
 

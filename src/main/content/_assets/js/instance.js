@@ -17,19 +17,12 @@
  ******************************************************************************/
 
 $(document).ready(function () {
-    fetchAllInstances()
-        .then(setInstanceSelections)
+    
+    setInstanceSelections()
         .then(fetchAnInstance)
         .then(loadAllInfo);
 
     setListeners();
-
-    $("#instance-accordion li").on("click", e => {
-        e.stopPropagation();
-        let newName = handleInstanceSelection(e.target);
-        fetchAnInstance(newName)
-            .then(loadAllInfo);
-    });
 
     $("#admin-modal-list li").on("click", e => {
         $(e.target).toggleClass("bx--accordion__item--active");
@@ -46,8 +39,6 @@ $(document).ready(function () {
     $("#admin-modal-content").on("click", ".bx--inline-notification__close-button", e => {
         $(e.target).closest(".bx--accordion__content").find(".remove-user-error-notification").addClass("hidden");;
     });
-
-    $("#stack-govern-dropdown .bx--dropdown-list li").on("click", setDigestGovernanacePolicy);
 });
 
 function setListeners() {
@@ -75,7 +66,6 @@ function loadAllInfo(instanceJSON) {
     }
 
     setInstanceCard(instanceJSON);
-    displayDigest(instanceJSON);
     fetchStacks(instanceJSON.metadata.name);
 
     fetchAllTools()
@@ -102,22 +92,6 @@ function displayDigest(instance){
     $("#stack-govern-value").attr("data-value", policy);
     $("#stack-govern-value-text").text(translatedPolicyText);
     $currentPolicyLi.addClass("bx--dropdown--selected");
-}
-
-function setDigestGovernanacePolicy(){
-    let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
-    let policy = $(this).attr("data-value");
-    fetch(`/api/kabanero/${instanceName}/digest`, 
-        { 
-            method: "PUT",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({policy})
-        })
-        .then(() => $("#digest-checkmark").fadeIn("slow").delay(5000).fadeOut("slow"))
-        .catch(error => console.error(`Error setting new digest policy to: ${policy}`, error));
 }
 
 // Set details on UI for any given instance
@@ -157,6 +131,7 @@ function setInstanceCard(instanceJSON) {
 
     // Instance Details
     let $instanceDetails = $("#repo-section");
+    $instanceDetails.empty();
     
     repos.forEach(repo => {
         //url will be in either the https key or the gitRelease key
@@ -164,8 +139,9 @@ function setInstanceCard(instanceJSON) {
         $instanceDetails.append(createRepositorySection(repo.name, repoURL));
     });
 
-    $("#instance-details-card #management-cli").val(cliURL).attr("title", cliURL);
-    $("#instance-details-card #management-cli").next(".input-group-append > .copy-to-clipboard").attr("title", "Click to copy Management CLI URL");
+    let $managementCLIInput = $("#instance-details-card #management-cli");
+    $managementCLIInput.val(cliURL).attr("title", cliURL);
+    $managementCLIInput.next(".input-group-append > .copy-to-clipboard").attr("title", "Click to copy Management CLI URL");
 
     // hide card loader
     $("#instance-details-card .bx--inline-loading").hide();
@@ -213,7 +189,7 @@ function setStackCard(instanceJSON) {
 // Sets up the UI in regards to OAuth data
 function setOAuth(oauthJSON) {
     if (oauthJSON && oauthJSON.isConfigured) {
-        let selectedInstance = $("#selected-instance-name").text().trim();
+        let selectedInstance = getActiveInstanceName();
         $("#stacks-oauth-msg").text("Manage Stacks");
         $("#stacks-link").attr("href", `/instance/stacks?name=${selectedInstance}`);
         
