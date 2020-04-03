@@ -489,3 +489,9 @@ function setDigestGovernanacePolicy(){
         .then(() => $("#digest-checkmark").fadeIn("slow").delay(5000).fadeOut("slow"))
         .catch(error => console.error(`Error setting new digest policy to: ${policy}`, error));
 }
+
+function createSVG(id, classNames, width, height, fill){
+    return `<svg class="${classNames}" width="${width}" height="${height}" fill="${fill}">
+        <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--${id}"></use>
+    </svg>`;
+}
