@@ -8,7 +8,7 @@ $(document).ready(function () {
     let url = new URL(location.href);
     let instanceName = url.searchParams.get("name");
 
-    setInstanceSelections(instanceName);
+    setAllInstances(instanceName);
     fetchAnInstance(instanceName)
         .then(loadAllInfo);
 

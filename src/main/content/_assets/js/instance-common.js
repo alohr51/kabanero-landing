@@ -419,44 +419,46 @@ function getActiveInstanceName(){
 
 // Set each instance name in the accordion selection. 
 // If a selectionName is passed in, the accordion will expand that instance (select) if it matches an instance name.
-function setInstanceSelections(selectionName) {   
+function setAllInstances(selectionName) {   
     return fetchAllInstances()
-        .then(instancesJSON => {
-            let instances = instancesJSON.items;
-            if (typeof instances === "undefined" || instances.length === 0) {
-                $("#instance-accordion #error-li").show();
+        .then((allInst) => setInstancesSelections(allInst, selectionName));
+}
 
-                $(".bx--inline-loading").hide();
-                console.error("No Kabanero instances were returned");
-                return;
-            }
+function setInstancesSelections(instancesJSON, selectionName){
+    let instances = instancesJSON.items;
+    if (typeof instances === "undefined" || instances.length === 0) {
+        $("#instance-accordion #error-li").show();
 
-            $("#instance-accordion").empty();
+        $(".bx--inline-loading").hide();
+        console.error("No Kabanero instances were returned");
+        return;
+    }
 
-            for (let instance of instances) {
-                let dateCreated = instance.metadata.creationTimestamp;
+    $("#instance-accordion").empty();
 
-                let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hidden");
-                $(row).find(".bx--accordion__title").text(instance.metadata.name);
-                $(row).find(".creation-date").text(new Date(dateCreated).toLocaleDateString());
-                $("#instance-accordion").append(row);
-            }
+    for (let instance of instances) {
+        let dateCreated = instance.metadata.creationTimestamp;
 
-            // Remove the error li from the carbon accordion. Carbon needs at least 1 li element there on load or it throws an error...
-            $("#instance-accordion #error-li").remove();
+        let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hidden");
+        $(row).find(".bx--accordion__title").text(instance.metadata.name);
+        $(row).find(".creation-date").text(new Date(dateCreated).toLocaleDateString());
+        $("#instance-accordion").append(row);
+    }
 
-            // If selectionName is passed we will set the active tab to one that matches that name, otherwise we set the first one in the list.
-            // For the selectionName == true case - we need to find the tab where the child div has the same instance name, but we want to return the "li" parent
-            let $activeInstance = typeof selectionName !== "undefined" ? $("#instance-accordion li .bx--accordion__title").filter((_, elem) => $(elem).text() === selectionName).first().closest("li") :
-                $("#instance-accordion li").first();
-            
-            if(selectionName && !$activeInstance){  
-                console.log(`Accordion could not find a selection instance for name: ${selectionName}`);
-                return;
-            }
-            $($activeInstance).addClass("bx--accordion__item--active active-instance");
-            return $activeInstance.find(".bx--accordion__title").text().trim();
-        });
+    // Remove the error li from the carbon accordion. Carbon needs at least 1 li element there on load or it throws an error...
+    $("#instance-accordion #error-li").remove();
+
+    // If selectionName is passed we will set the active tab to one that matches that name, otherwise we set the first one in the list.
+    // For the selectionName == true case - we need to find the tab where the child div has the same instance name, but we want to return the "li" parent
+    let $activeInstance = typeof selectionName !== "undefined" ? $("#instance-accordion li .bx--accordion__title").filter((_, elem) => $(elem).text() === selectionName).first().closest("li") :
+        $("#instance-accordion li").first();
+    
+    if(selectionName && !$activeInstance){  
+        console.log(`Accordion could not find a selection instance for name: ${selectionName}`);
+        return;
+    }
+    $($activeInstance).addClass("bx--accordion__item--active active-instance");
+    return $activeInstance.find(".bx--accordion__title").text().trim();
 }
 
 // Change the accordion when a new instance is clicked and return the new selected instance name

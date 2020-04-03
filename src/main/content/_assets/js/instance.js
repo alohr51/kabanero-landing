@@ -18,7 +18,7 @@
 
 $(document).ready(function () {
     
-    setInstanceSelections()
+    setAllInstances()
         .then(fetchAnInstance)
         .then(loadAllInfo);
 
@@ -58,7 +58,6 @@ function setListeners() {
     }
 }
 
-// Request to get all instances names
 function loadAllInfo(instanceJSON) {
     if (typeof instanceJSON === "undefined") {
         console.log("instance data is undefined, cannot load instance");
