@@ -69,3 +69,13 @@ site-custom:
   header:
     title_logo: /img/Kabanero_white_title_text.svg
     header_logo: /img/Kabanero_Logo_White_Text.png
+  
+# 3 modes of separation
+# none: full app with homepage and instance management
+# starter: only configured to show homepage, docs, and guides, no instance management
+# instanceViewer: no homepage and includes instance management
+separation_mode: none
+
+separation_starter: starter
+separation_instance_viewer: instance_viewer
+separation_none: none

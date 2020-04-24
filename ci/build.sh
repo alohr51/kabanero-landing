@@ -2,6 +2,7 @@
 
 DOCKER_IMAGE_NAME=${1:-landing}
 DOCKER_IMAGE_TAG=${2:-latest}
+SEPARATION_MODE=${2:-none}
 
 CUR_DIR="$(cd $(dirname $0) && pwd)"
 

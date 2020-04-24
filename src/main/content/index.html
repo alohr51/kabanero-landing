@@ -57,9 +57,16 @@ seo-title: Kabanero
             <!-- Cloud native app buttons -->
             <div class="bx--row margin-top-spacing-08">
                 <div class="bx--col cloud-native-app-buttons">
-                    <!-- View Team instance button -->
-                    <a href="/instance">
-                        <button class="bx--btn bx--btn--secondary" type="button">{{t.index.get-started-button1}}</button>
+                    <!-- View Team instance or docs button depending on the separation type -->
+                    {% assign href = "/instance" %}
+                    {% assign getStartedBtnText = t.index.get-started-button1 %}
+
+                    {% if site.separation_mode == site.separation_starter %}
+                        {% assign href = "/docs" %}
+                        {% assign getStartedBtnText = t.doc.view-docs %}
+                    {% endif %}
+                    <a href="{{href}}">
+                        <button class="bx--btn bx--btn--secondary" type="button">{{getStartedBtnText}}</button>
                     </a>
 
                     <!-- Set up dev tools button -->
@@ -123,8 +130,7 @@ seo-title: Kabanero
             <ul>
                 <li>
                     {{t.index.devtools.steps.install}}
-                    <a target="_blank"
-                        href="{{site.site-custom.index.dev-modal.appsody}}">{{t.index.devtools.steps.appsody}}</a>
+                    <a target="_blank" href="{{site.site-custom.index.dev-modal.appsody}}">{{t.index.devtools.steps.appsody}}</a>
                 </li>
             </ul>
 

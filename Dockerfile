@@ -48,7 +48,8 @@ ENV DOCS_GIT_REVISION $DOCS_GIT_REVISION
 ENV GUIDES_GIT_URL $GUIDES_GIT_URL
 ENV GUIDES_GIT_REVISION $GUIDES_GIT_REVISION
 
-RUN bash ./scripts/build_jekyll_maven.sh
+ARG SEPARATION_MODE
+RUN bash ./scripts/build_jekyll_maven.sh $SEPARATION_MODE
 
 # ------------------------------------------------------------------------------------------------
 

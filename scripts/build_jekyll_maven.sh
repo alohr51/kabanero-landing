@@ -1,9 +1,25 @@
 #!/bin/bash
-# Exit immediately if a simple command exits with a non-zero status.
 set -e
-JEKYLL_BUILD_FLAGS=""
+
+# Pass in a separation type. This is the xxx value in the filename: separation_xxx.yml
+SEPARATION_MODE="$1"
 CONTENT_DIR="src/main/content"
 WEBAPP_DIR="src/main/webapp"
+JEKYLL_BUILD_FLAGS=""
+
+# "none" is a valid SEPARATION_TYPE and is the default, so we skip setting the config file if "none" is passed in
+if [ ! -z "$SEPARATION_MODE" ] && [ "$SEPARATION_MODE" != "none" ]; then 
+    SEPARATION_CONFIG_FILE="$CONTENT_DIR/_separation_$SEPARATION_MODE.yml"
+
+    if [[ -f "$SEPARATION_CONFIG_FILE" ]]; then
+        JEKYLL_BUILD_FLAGS="--config $CONTENT_DIR/_config.yml,$CONTENT_DIR/_separation_$SEPARATION_MODE.yml"
+    fi
+    else
+        echo "SEPARATION_MODE is specified, but no sepration config file could be found at: $SEPARATION_CONFIG_FILE"
+    fi
+fi
+
+echo "Jekyll Build Flags: $JEKYLL_BUILD_FLAGS"
 
 echo "Ruby version:"
 ruby -v
