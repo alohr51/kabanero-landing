@@ -61,7 +61,7 @@ seo-title: Kabanero
                     {% assign href = "/instance" %}
                     {% assign getStartedBtnText = t.index.get-started-button1 %}
 
-                    {% if site.separation_mode == site.separation_starter %}
+                    {% if site.separation_mode == site.separation_modes.separation_splash %}
                         {% assign href = "/docs" %}
                         {% assign getStartedBtnText = t.doc.view-docs %}
                     {% endif %}

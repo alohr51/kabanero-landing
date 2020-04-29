@@ -22,8 +22,8 @@
                 </a>
             </li>
 
-            <!-- Instance - only show when the separation mode is "none" (full app) -->
-            {% if site.separation_mode == site.separation_none %}
+            <!-- Instance - only show when the separation mode is not "splash" -->
+            {% if site.separation_mode != site.separation_modes.splash %}
             <li class="bx--side-nav__item {% if page.url contains '/instance' %}bx--side-nav__item--active{% endif %}">
                 <a class="bx--side-nav__link {% if page.url contains '/instance' %}bx--side-nav__link--current{% endif %}"
                     href="/instance" aria-current="{% if page.url contains '/instance' %}page{% endif %}">

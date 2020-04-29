@@ -8,7 +8,7 @@ WEBAPP_DIR="src/main/webapp"
 JEKYLL_BUILD_FLAGS=""
 
 # "none" is a valid SEPARATION_TYPE and is the default, so we skip setting the config file if "none" is passed in
-if [ ! -z "$SEPARATION_MODE" ] && [ "$SEPARATION_MODE" != "none" ]; then 
+if [[ -n "$SEPARATION_MODE" && "$SEPARATION_MODE" != "none" ]]; then 
     SEPARATION_CONFIG_FILE="$CONTENT_DIR/_separation_$SEPARATION_MODE.yml"
 
     if [[ -f "$SEPARATION_CONFIG_FILE" ]]; then
@@ -16,6 +16,7 @@ if [ ! -z "$SEPARATION_MODE" ] && [ "$SEPARATION_MODE" != "none" ]; then
     fi
     else
         echo "SEPARATION_MODE is specified, but no sepration config file could be found at: $SEPARATION_CONFIG_FILE"
+        exit 1
     fi
 fi
 
